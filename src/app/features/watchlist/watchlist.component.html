@@ -1,0 +1,26 @@
+<div *ngIf="watchedStocks"  >
+    <div class="container" *ngFor= "let stock of watchedStocks; let i= index" > 
+        <div class="card shadow bg-white rounded" [hidden]="watchedStocks[stock.symbol]"[ngClass]="{'redBorder': stock.change < 0, 'greenBorder': stock.change > 0}">
+            <div class="card-header p-2 bg-primary text-white">
+                {{ stock.companyName}}<br />
+                ({{ stock.symbol }})
+            </div>
+            <div class="p-2 row">
+                <div class="col">
+                    <span class=" h4" [ngClass]="{'red': stock.change < 0, 'green': stock.change > 0}">{{ stock.latestPrice | currency }}</span><br />
+                    <span [ngClass]="{'red': stock.change < 0, 'green': stock.change > 0}">{{ stock.change | currency }}  ({{ stock.changePercent }})</span><br />
+                    <span class=""> As of {{ stock.lastTradeTime | date:'longDate'}}</span>
+                </div >
+                <div class="col text-right " (click)="watchedStocks[stock.symbol]= !watchedStocks[stock.symbol]" >
+                    <button id="alert" class="btn btn-outline-secondary" (click)= "removeFromWatchlist(i)"><i class="fas fa-minus-circle"></i>  Remove from Watchlist</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div  class="container text-center "*ngIf="showMyMessage">
+    <h4>Add symbols to your watchlist!</h4>
+</div>
+
+    
